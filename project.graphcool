@@ -1,0 +1,44 @@
+# project: cj3zk5hhl2ncr0108iwz046xf
+# version: 13
+
+type Building implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String! @defaultValue(value: "")
+  units: [Unit!]! @relation(name: "BuildingOnUnit")
+  updatedAt: DateTime!
+}
+
+type File implements Node {
+  contentType: String!
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String!
+  secret: String! @isUnique
+  size: Int!
+  updatedAt: DateTime!
+  url: String! @isUnique
+}
+
+type Resident implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String!
+  units: [Unit!]! @relation(name: "UnitResident")
+  updatedAt: DateTime!
+}
+
+type Unit implements Node {
+  building: Building @relation(name: "BuildingOnUnit")
+  createdAt: DateTime!
+  id: ID! @isUnique
+  name: String!
+  residents: [Resident!]! @relation(name: "UnitResident")
+  updatedAt: DateTime!
+}
+
+type User implements Node {
+  createdAt: DateTime!
+  id: ID! @isUnique
+  updatedAt: DateTime!
+}
